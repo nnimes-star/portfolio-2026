@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .page-header {
+      padding: 5rem 3rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .page-header .section-label { margin-bottom: 0.75rem; }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+
+    .page-header h1 span {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--text);
+      transition: -webkit-text-stroke-color var(--transition);
+    }
+
+    .about-intro {
+      padding: 5rem 3rem;
+    }
+
+    .about-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .photo-frame {
+      aspect-ratio: 3/4;
+      background: var(--bg3);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232,255,71,0.06) 0%, transparent 60%);
+    }
+
+    .photo-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+      display: block;
+    }
+
+    .photo-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .intro-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.75rem;
+    }
+
+    .intro-text p {
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    .intro-text p strong { color: var(--text); font-weight: 500; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      transition: border-color var(--transition);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      transition: color var(--transition);
+    }
+
+    .stat-lbl {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      letter-spacing: 0.04em;
+    }
+
+    .skills-section {
+      padding: 4rem 3rem 5rem;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 1rem;
+    }
+
+    .skill-group { 
+
+    .skill-group-name {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      transition: color var(--transition);
+    }
+
+    .skill-list { display: flex; flex-direction: column; gap: 0.85rem; }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 32px;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .skill-name { font-size: 0.83rem; }
+
+    .skill-track {
+      height: 2px;
+      background: var(--bg3);
+      border-radius: 100px;
+      overflow: hidden;
+      transition: background var(--transition);
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 100px;
+      width: 0;
+      transition: width 1s cubic-bezier(0.16,1,0.3,1), background var(--transition);
+    }
+
+    .skill-pct {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-align: right;
+    }
+  }
+    .experience-section { padding: 5rem 3rem; }
+
+    .timeline { margin-top: 1rem; display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: border-color var(--transition);
+    }
+
+    .timeline-item:first-child { border-top: 1px solid var(--border); }
+
+    .tl-date {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+      padding-top: 0.2rem;
+    }
+
+    .tl-role {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .tl-company {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+      transition: color var(--transition);
+    }
+
+    .tl-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 900px) {
+      .page-header, .about-intro, .skills-section, .experience-section { padding: 3rem 1.5rem; }
+      .about-intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .photo-frame { aspect-ratio: 4/3; }
+      .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">nN.</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+       </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="theme-icon">☀️</span>
+      <span class="theme-label">Light</span>
+    </button>
+     
+  </nav>
+
+  <div class="page-header">
+    <p class="section-label">About me</p>
+    <h1>Who<br><span>I Am.</span></h1>
+  </div>
+
+  <section class="about-intro">
+    <div class="about-intro-grid">
+      <div class="photo-frame reveal">
+<!-- PROFILE VIDEO: replace src below with your mp4 file -->
+<video src="../media/portfolio-pic.mp4" autoplay loop muted playsinline></video>
+<!-- END PROFILE VIDEO -->
+     </div>
+      <div class="intro-text">
+        <h2 class="reveal">The person<br>behind the work.</h2>
+        <p class="reveal">Hi, I'm <strong>Nigel</strong> — a creative professional based in <strong>Davao City</strong>. I specialise in multimedia, blending craft with intention to create work that truly resonates.</p>
+        <p class="reveal">With <strong>3 years of experience</strong>, I've had the privilege of working with clients ranging from early-stage startups to established brands. My approach is rooted in curiosity, attention to detail, and a relentless drive to push past the obvious.</p>
+        <p class="reveal">When I'm not deep in a project, you'll find me on pickleball courts. I believe great work comes from a rich life outside of it.</p>
+        <div class="stats-row">
+          <div class="reveal">
+            <div class="stat-num">10+</div>
+            <div class="stat-lbl">Projects completed</div>
+          </div>
+          <div class="reveal">
+            <div class="stat-num">8</div>
+            <div class="stat-lbl">Happy clients</div>
+          </div>
+          <div class="reveal">
+            <div class="stat-num">3+</div>
+            <div class="stat-lbl">Years active</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills-section">
+    <div class="container">
+      <p class="section-label reveal">Expertise</p>
+      <h2 class="section-title reveal">What I bring<br>to the table.</h2>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Core Skills</div>
+          <div class="skill-list">
+            <div class="skill-row">
+              <span class="skill-name">Layout Design</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="92%"></div></div>
+              <span class="skill-pct">92%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Logo Making</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="85%"></div></div>
+              <span class="skill-pct">85%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Motion Graphics</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="78%"></div></div>
+              <span class="skill-pct">78%</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Tools &amp; Tech</div>
+          <div class="skill-list">
+            <div class="skill-row">
+              <span class="skill-name">Photoshop</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="88%"></div></div>
+              <span class="skill-pct">88%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Illustrator</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+              <span class="skill-pct">80%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">After Effects</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="72%"></div></div>
+              <span class="skill-pct">72%</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-name">Soft Skills</div>
+          <div class="skill-list">
+            <div class="skill-row">
+              <span class="skill-name">Communication</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="95%"></div></div>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Problem Solving</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+              <span class="skill-pct">90%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-name">Leadership</span>
+              <div class="skill-track"><div class="skill-bar-fill" data-width="93%"></div></div>
+              <span class="skill-pct">93%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience-section">
+    <div class="container">
+      <p class="section-label reveal">Experience</p>
+      <h2 class="section-title reveal">Where I've<br>worked.</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="tl-date">2024 — Present</div>
+          <div>
+            <div class="tl-role">Colorist and Motion Graphic Artist</div>
+            <div class="tl-company">Bryan Guinto Photography</div>
+            <p class="tl-desc">A brief description of what you did in this role, the skills you applied, and any notable achievements or impact you made.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="tl-date">2025</div>
+          <div>
+            <div class="tl-role">Brand and Motion Graphic Artist</div>
+            <div class="tl-company">DGTAL Creatives</div>
+            <p class="tl-desc">A brief description of what you did in this role, the skills you applied, and any notable achievements or impact you made.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="tl-date">2022 — 2023</div>
+          <div>
+            <div class="tl-role">Director</div>
+            <div class="tl-company">WatchPoint</div>
+            <p class="tl-desc">A brief description of what you did in this role, the skills you applied, and any notable achievements or impact you made.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer>
+    <a href="../index.html" class="footer-logo">nN.</a>
+    <ul class="footer-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <span>© 2026 Nigel Nimes. All rights reserved.</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
